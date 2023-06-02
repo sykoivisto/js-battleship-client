@@ -1,0 +1,26 @@
+.gameboard {
+  width: 500px;
+  height: 500px;
+
+  border: 1px solid red;
+
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+.gridRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+.gridSquare {
+  border: 1px solid red;
+}
+
+.hit {
+  background-color: rgb(255, 131, 131);
+}
+.miss {
+  background-color: rgb(141, 141, 141);
+}
+.ship {
+  background-color: rgb(131, 131, 255);
+}

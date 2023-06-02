@@ -1,0 +1,16 @@
+.gameboard {
+  width: 500px;
+  height: 500px;
+
+  border: 1px solid red;
+
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+.gridRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+.gridSquare {
+  border: 1px solid red;
+}
