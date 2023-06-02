@@ -19,12 +19,18 @@ function Game() {
   player.gameboard.placeShip(carrier3, false, [3, 2]);
   player.gameboard.placeShip(carrier4, true, [3, 8]);
 
+  const [computerTurnTrigger, setComputerTurnTrigger] = useState(0);
+
+  const onTriggerComputerTurn = () => {
+    setComputerTurnTrigger(trigger => trigger + 1);
+  }
+
   return (
     <div className="game">
-      <ComputerBoard player={computer}></ComputerBoard>
+      <ComputerBoard player={computer} onTriggerComputerTurn={onTriggerComputerTurn}></ComputerBoard>
       <hr />
       my ships
-      <PlayerBoard player={player}></PlayerBoard>
+      <PlayerBoard player={player} computerTurnTrigger={computerTurnTrigger}></PlayerBoard>
     </div>
   );
 }

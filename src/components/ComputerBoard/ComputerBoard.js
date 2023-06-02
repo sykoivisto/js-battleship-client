@@ -4,7 +4,7 @@ import styles from './ComputerBoard.module.scss';
 
 import NEWARR from '../../scripts/NEWARR';
 
-export default function GameboardDisplay({ player }) {
+export default function GameboardDisplay({ player, onTriggerComputerTurn }) {
 	const [domHitsAndMisses, setDomHitsAndMisses] = useState(NEWARR());
 
 	const onClickGridSquare = (col, row) => {
@@ -29,6 +29,7 @@ export default function GameboardDisplay({ player }) {
 		// TODO check to see if all ships are sunk
 
     // TODO call function for computer player to take turn
+		onTriggerComputerTurn();
 	};
 
 	const rows = [];

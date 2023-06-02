@@ -4,23 +4,58 @@ import styles from './PlayerBoard.module.scss';
 
 import NEWARR from '../../scripts/NEWARR';
 
-export default function GameboardDisplay({ player }) {
+export default function GameboardDisplay({ player, computerTurnTrigger }) {
 	const [domHitsAndMisses, setDomHitsAndMisses] = useState(NEWARR());
 	const [domShips, setDomShips] = useState(NEWARR);
 
 	useEffect(() => {
 		let ships = [];
-    
-    player.gameboard.getShips().map(ship => ships.push(...ship.getLocation()));
+
+		player.gameboard
+			.getShips()
+			.map((ship) => ships.push(...ship.getLocation()));
 
 		let newArr = NEWARR();
 
 		ships.map((pos) => {
-      newArr[pos[0]][pos[1]] = 'ship';
+			newArr[pos[0]][pos[1]] = 'ship';
 		});
 
 		setDomShips(newArr);
 	}, []);
+
+	useEffect(() => {
+		if (computerTurnTrigger) {
+			computerTakeTurn();
+		}
+	}, [computerTurnTrigger]);
+
+	const computerTakeTurn = () => {
+		setTimeout(() => {
+			// this algorithm is abysmal
+			let x, y;
+			do {
+				x = Math.floor(Math.random() * 10);
+				y = Math.floor(Math.random() * 10);
+			} while (player.gameboard.wasClickedAlready(x, y));
+	
+			player.gameboard.receiveAttack([x, y]);
+	
+			let hits = player.gameboard.getHitLog();
+			let misses = player.gameboard.getMissLog();
+	
+			let newArr = NEWARR();
+	
+			hits.map((pos) => {
+				newArr[pos[0]][pos[1]] = 'hit';
+			});
+			misses.map((pos) => {
+				newArr[pos[0]][pos[1]] = 'miss';
+			});
+	
+			setDomHitsAndMisses(newArr);
+		}, 1000)
+	};
 
 	const rows = [];
 
