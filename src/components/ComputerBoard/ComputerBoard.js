@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import styles from './ComputerBoard.module.scss';
 
 import NEWARR from '../../scripts/NEWARR';
 
-export default function GameboardDisplay({ player, onTriggerComputerTurn }) {
+export default function GameboardDisplay({
+	player,
+	onTriggerComputerTurn,
+	onAllShipsSunk,
+}) {
 	const [domHitsAndMisses, setDomHitsAndMisses] = useState(NEWARR());
 
 	const onClickGridSquare = (col, row) => {
@@ -27,8 +31,9 @@ export default function GameboardDisplay({ player, onTriggerComputerTurn }) {
 		setDomHitsAndMisses(newArr);
 
 		// TODO check to see if all ships are sunk
+		if (player.gameboard.allShipsSunk()) onAllShipsSunk('player');
 
-    // TODO call function for computer player to take turn
+		// TODO call function for computer player to take turn
 		onTriggerComputerTurn();
 	};
 

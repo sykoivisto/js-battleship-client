@@ -1,38 +1,40 @@
 import React, { useState } from 'react';
-import PlayerBoard from '../components/PlayerBoard/PlayerBoard'
-import ComputerBoard from '../components/ComputerBoard/ComputerBoard'
-import Player from '../scripts/Player';
-import Ship from '../scripts/Ship';
+import PlayerBoard from '../components/PlayerBoard/PlayerBoard';
+import ComputerBoard from '../components/ComputerBoard/ComputerBoard';
 
-import '../Shared/gameboard.scss'
+import '../Shared/gameboard.scss';
 
-function Game() {
-	const [computer] = useState(Player());
-	const carrier = Ship(5);
-	computer.gameboard.placeShip(carrier, false, [0, 0]);
+function Game({ computer, player }) {
 
-  const [player] = useState(Player());
-	const carrier2 = Ship(5);
-  const carrier3 = Ship(5);
-  const carrier4 = Ship(5);
-	player.gameboard.placeShip(carrier2, false, [0, 0]);
-  player.gameboard.placeShip(carrier3, false, [3, 2]);
-  player.gameboard.placeShip(carrier4, true, [3, 8]);
+	const [computerTurnTrigger, setComputerTurnTrigger] = useState(0);
 
-  const [computerTurnTrigger, setComputerTurnTrigger] = useState(0);
+	const onAllShipsSunk = (winner) => {
+		console.log('allships sunk!')
+		if (winner === 'computer') return alert(`You've lost all your ships!`);
+		if (winner === 'player')
+			return alert(`Congratulations, You've sunken all the enemy ships!`);
+	};
 
-  const onTriggerComputerTurn = () => {
-    setComputerTurnTrigger(trigger => trigger + 1);
-  }
+	const onTriggerComputerTurn = () => {
+		setComputerTurnTrigger((trigger) => trigger + 1);
+	};
 
-  return (
-    <div className="game">
-      <ComputerBoard player={computer} onTriggerComputerTurn={onTriggerComputerTurn}></ComputerBoard>
-      <hr />
-      my ships
-      <PlayerBoard player={player} computerTurnTrigger={computerTurnTrigger}></PlayerBoard>
-    </div>
-  );
+	return (
+		<div className='game'>
+			<ComputerBoard
+				player={computer}
+				onTriggerComputerTurn={onTriggerComputerTurn}
+				onAllShipsSunk={onAllShipsSunk}
+			></ComputerBoard>
+			<hr />
+			my ships
+			<PlayerBoard
+				player={player}
+				computerTurnTrigger={computerTurnTrigger}
+				onAllShipsSunk={onAllShipsSunk}
+			></PlayerBoard>
+		</div>
+	);
 }
 
 export default Game;

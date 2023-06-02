@@ -41,14 +41,18 @@ const Gameboard = () => {
 
 	const getMissLog = () => missLog;
 
-	const wasClickedAlready = (x,y) => {
+	const wasClickedAlready = (x, y) => {
 		let hits = JSON.stringify(hitLog);
 		let misses = JSON.stringify(missLog);
 
-		if (hits.includes(JSON.stringify([x,y])) || misses.includes(JSON.stringify([x,y]))) return true;
+		if (
+			hits.includes(JSON.stringify([x, y])) ||
+			misses.includes(JSON.stringify([x, y]))
+		)
+			return true;
 
 		return false;
-	}
+	};
 
 	return {
 		placeShip,
